@@ -281,28 +281,79 @@
         <p class="section-subtitle">Outpost One is a complete Merchant of Record solution. We become the local seller for our merchants and take over local payment infrastructure, indirect tax compliance and tax liability to deliver tangible uplift to your bottom line.</p>
       </div>
 
-      <div class="impact-item">
-        <div style="display:flex;align-items:center;gap:24px;justify-content:center;">
-          <div class="metric-icon">
-            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-              <path d="M9 12l2 2 4-4"></path>
-            </svg>
-          </div>
-          <div class="metric-value">
-            <span class="metric-number dynamic-longtail">$45K+</span>
-            <span class="metric-label">Long tail liability and risk absorbed</span>
-          </div>
-        </div>
-        <div>
-          <h3 style="font-size:20px;font-weight:600;margin-bottom:8px;">Transfer pricing</h3>
-          <p style="color:var(--text-secondary);margin-bottom:24px;">We have a very efficient structure so we can optimise TP - you do not need to set up TP, monitor it, or handle all the complexities to get an efficient structure.</p>
+<div class="impact-item">
+  <div style="display:flex;align-items:center;gap:24px;justify-content:center;">
+    <div class="metric-icon">
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+        <path d="M9 12l2 2 4-4"></path>
+      </svg>
+    </div>
+    <div class="metric-value">
+      <span class="metric-number"><span class="dynamic-outpost-fee-pct">7.5%</span></span>
+      <span class="metric-label">all-in fee</span>
+    </div>
+  </div>
+  <div>
+    <h3 style="font-size:20px;font-weight:600;margin-bottom:8px;">
+      <span class="dynamic-outpost-fee-pct">7.5%</span> fee only
+    </h3>
+    <p style="color:var(--text-secondary);">
+      Outpost One comes with an all-in-one fee that covers payments and indirect tax compliance obligations — we simply
+      require a minimum volume through our platform in Year&nbsp;1.
+    </p>
+  </div>
+</div>
 
-          <h3 style="font-size:20px;font-weight:600;margin-bottom:8px;">Long term liability</h3>
-          <p style="color:var(--text-secondary);">Outpost assumes all legal and tax responsibility in-market with a dedicated legal set up.</p>
-        </div>
-      </div>
+<div class="impact-item">
+  <div style="display:flex;align-items:center;gap:24px;justify-content:center;">
+    <div class="metric-icon">
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+        <path d="M9 12l2 2 4-4"></path>
+      </svg>
+    </div>
+    <div class="metric-value">
+      <span class="metric-number">MoR</span>
+      <span class="metric-label">all strings attached</span>
+    </div>
+  </div>
+  <div>
+    <h3 style="font-size:20px;font-weight:600;margin-bottom:8px;">All strings attached</h3>
+    <p style="color:var(--text-secondary);margin-bottom:24px;">
+      As your MoR, Outpost becomes the legal re-seller of your software in Brazil and handles the full tax compliance —
+      through an optimised structure we design for you.
+    </p>
+    <p style="color:var(--text-secondary);">
+      We also handle and optimise payments end-to-end — so you benefit from higher approval rates and local APM access,
+      as well as optimised FX on payouts.
+    </p>
+  </div>
+</div>
 
+<div class="impact-item">
+  <div style="display:flex;align-items:center;gap:24px;justify-content:center;">
+    <div class="metric-icon">
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M5 12h14M12 5l7 7-7 7"></path>
+      </svg>
+    </div>
+    <div class="metric-value">
+      <span class="metric-number"><span class="dynamic-less-vs-alt">36%</span></span>
+      <span class="metric-label">less vs. alternatives</span>
+    </div>
+  </div>
+  <div>
+    <h3 style="font-size:20px;font-weight:600;margin-bottom:8px;">
+      <span class="dynamic-less-vs-alt">36%</span> less vs. alternatives
+    </h3>
+    <p style="color:var(--text-secondary);">
+      Not only do we deliver a better outcome through an optimised tax structure and by taking over in-market legal &
+      tax liability — we also optimise your transfer pricing through an efficient structure and an Outpost entity set up
+      just for you.
+    </p>
+  </div>
+</div>
       <div class="value-hero">
         <div class="value-hero-content">
           <span>Net value unlocked by Outpost</span>
@@ -603,6 +654,33 @@
       return { S1, S2, S3, S4, S5, totalCompliance, totalOutpost, net };
     }
 
+    // --- helpers for the three Solution boxes ---
+    function getLessVsAltPercent() {
+      // percent less = (AltCost - OutpostCost) / AltCost
+      const r1 = runCalc1(Live.gmv_usd, Live.payfx_pct);
+      const r2 = runCalc2(Live.gmv_usd, Live.avg_txn_usd, Live.payfx_pct);
+    
+      if (Live.activeCalc === 'calc1') {
+        const alt = r1.totalApp;
+        const outp = r1.totalOutpost;
+        return alt > 0 ? Math.round(((alt - outp) / alt) * 100) : 0;
+      } else {
+        const alt = Math.abs(r2.totalCompliance);
+        const outp = Math.abs(r2.totalOutpost);
+        return alt > 0 ? Math.round(((alt - outp) / alt) * 100) : 0;
+      }
+    }
+    
+    function updateSolutionBoxesUI() {
+      // 7.5% fee (from your C1.D)
+      const fee = (C1.D * 100).toFixed(1) + '%';
+      document.querySelectorAll('.dynamic-outpost-fee-pct').forEach(el => (el.textContent = fee));
+    
+      // [x]% less vs alternatives (depends on the active calculator + inputs)
+      const pct = getLessVsAltPercent() + '%';
+      document.querySelectorAll('.dynamic-less-vs-alt').forEach(el => (el.textContent = pct));
+    }
+    
     // ===== UI helpers =====
     function labelInputs() {
       document.getElementById('in_gmv_val').textContent = utils.formatCurrency(Live.gmv_usd);
@@ -678,6 +756,7 @@
 
       Live.netImpact = Live.activeCalc === 'calc1' ? r1.net : r2.net;
       updateBindingsAcrossPage();
+      updateSolutionBoxesUI();
     }
 
     // ===== Toggle & inputs =====
