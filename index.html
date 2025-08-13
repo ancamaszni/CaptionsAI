@@ -117,6 +117,28 @@
     .range-input::-webkit-slider-thumb:hover{transform:scale(1.2);box-shadow:0 0 10px var(--accent)}
     .range-value{min-width:110px;text-align:right;font-size:20px;font-weight:600;color:var(--accent)}
 
+    /* Pink highlight box (same style as purple highlight but pink) */
+    .result-item.highlight-pink{
+      background: rgba(243, 17, 153, 0.12);
+      border: 1px solid rgba(243, 17, 153, 0.3);
+      border-radius: 8px;
+      padding: 20px;
+      margin: 12px -20px;
+    }
+    .result-item.highlight-pink .result-value{ color: var(--jb-pink); }
+    
+    /* Centered "vs." between app store and outpost sections */
+    .vs-divider{
+      text-align:center;
+      margin: 16px 0 12px;
+      font-weight:700;
+      color: var(--text-secondary);
+      letter-spacing: .08em;
+    }
+    
+    /* CTA inside left column */
+    .calc-cta{ margin-top: 28px; }
+    
     /* ===== Results ===== */
     .calculator-results{background:rgba(107,87,255,0.05);border-radius:12px;padding:40px;border:1px solid var(--jb-purple-fog)}
     .result-item{display:flex;justify-content:space-between;align-items:center;padding:20px 0;border-bottom:1px solid var(--border-color)}
@@ -379,37 +401,49 @@
         <div>
           <h3 style="font-size:24px;font-weight:600;margin-bottom:24px;">Inputs</h3>
 
-          <div class="input-group">
-            <label class="input-label">GMV in Brazil ($) - (A)</label>
-            <div class="input-wrapper">
-              <input type="range" id="in_gmv" class="range-input" min="500000" max="50000000" step="100000" value="5000000" oninput="updateInputs()">
-              <span class="range-value" id="in_gmv_val">$5,000,000</span>
+        <!-- GMV slider (A) -->
+            <div class="input-group">
+              <label class="input-label">GMV in Brazil ($)</label>
+              <div class="input-wrapper">
+                <input type="range" id="in_gmv" class="range-input"
+                       min="1000000" max="20000000" step="100000" value="5000000"
+                       oninput="updateInputs()">
+                <span class="range-value" id="in_gmv_val">$5,000,000</span>
+              </div>
             </div>
-          </div>
-
-          <div class="input-group">
-            <label class="input-label">Average transaction value ($) - (B)</label>
-            <div class="input-wrapper">
-              <input type="range" id="in_atv" class="range-input" min="5" max="500" step="5" value="50" oninput="updateInputs()">
-              <span class="range-value" id="in_atv_val">$50</span>
+            
+            <!-- Avg transaction value (B) -->
+            <div class="input-group">
+              <label class="input-label" id="label_atv">Average transaction value ($)</label>
+              <div class="input-wrapper">
+                <input type="range" id="in_atv" class="range-input"
+                       min="5" max="500" step="5" value="50"
+                       oninput="updateInputs()">
+                <span class="range-value" id="in_atv_val">$50</span>
+              </div>
             </div>
-            <span style="font-size:14px;color:var(--text-secondary);margin-top:8px;display:block;">Used to derive # transactions where needed.</span>
-          </div>
-
-          <div class="input-group">
-            <label class="input-label">Payments & FX fees (%) - (E)</label>
-            <div class="input-wrapper">
-              <input type="range" id="in_payfx" class="range-input" min="1" max="10" step="0.1" value="4" oninput="updateInputs()">
-              <span class="range-value" id="in_payfx_val">4.0%</span>
+            
+            <!-- Payments & FX fees (E) -->
+            <div class="input-group">
+              <label class="input-label">Payments & FX fees (%)</label>
+              <div class="input-wrapper">
+                <input type="range" id="in_payfx" class="range-input"
+                       min="1.5" max="10" step="0.5" value="4"
+                       oninput="updateInputs()">
+                <span class="range-value" id="in_payfx_val">4.0%</span>
+              </div>
             </div>
-            <span style="font-size:14px;color:var(--text-secondary);margin-top:8px;display:block;">Total payment processing + FX as % of GMV.</span>
-          </div>
-        </div>
-
+            
+            <!-- CTA moved into the bottom-left of the calculator -->
+            <div class="calc-cta">
+              <button class="btn btn-primary" onclick="openModal()">
+                <span id="calc-cta-text">Make $1.1M more in Brazil with Outpost — Book a demo</span>
+              </button>
+            </div>
         <!-- Calculator 1 -->
-        <div class="calculator-results" id="panel-calc1">
-          <h3 style="font-size:24px;font-weight:600;margin-bottom:20px;">App Store vs Outpost</h3>
+        <h3 style="font-size:24px;font-weight:600;margin-bottom:20px;">App / Play store vs. Outpost</h3>
 
+          <!-- App / Play store -->
           <div class="result-item">
             <span class="result-label">App store / play store fee</span>
             <span class="result-value negative" id="c1_app_fee">-$1,500,000</span>
@@ -419,32 +453,34 @@
             <span class="result-value negative" id="c1_addl_payments">-$200,000</span>
           </div>
           <div class="result-item">
-            <span class="result-label">Indirect tax</span>
+            <span class="result-label">Sales tax</span>
             <span class="result-value negative" id="c1_indirect_tax">-$1,250,000</span>
           </div>
-          <div class="result-item" style="border-top:1px solid var(--border-color);padding-top:16px;margin-top:16px;">
+          <div class="result-item highlight-pink">
             <span class="result-label"><strong>Total with App / Play store</strong></span>
-            <span class="result-value negative" id="c1_total_app">-$2,950,000</span>
+            <span class="result-value" id="c1_total_app">-$2,950,000</span>
           </div>
-
-          <div class="result-item" style="margin-top:20px;">
+          
+          <div class="vs-divider">vs.</div>
+          
+          <!-- Outpost -->
+          <div class="result-item">
             <span class="result-label">Outpost fee</span>
             <span class="result-value negative" id="c1_outpost_fee">-$375,000</span>
           </div>
           <div class="result-item">
-            <span class="result-label">Indirect tax</span>
+            <span class="result-label">Sales tax</span>
             <span class="result-value negative" id="c1_outpost_tax">-$1,487,500</span>
           </div>
-          <div class="result-item" style="border-top:1px solid var(--border-color);padding-top:16px;margin-top:16px;">
+          <div class="result-item highlight-pink">
             <span class="result-label"><strong>Total with Outpost</strong></span>
-            <span class="result-value negative" id="c1_total_outpost">-$1,862,500</span>
+            <span class="result-value" id="c1_total_outpost">-$1,862,500</span>
           </div>
-
-          <div class="result-item highlight">
+          
+          <div class="result-item highlight" style="margin-top:16px;">
             <span class="result-label"><strong>Net impact with Outpost</strong></span>
             <span class="result-value positive" id="c1_net">+$1,087,500</span>
           </div>
-        </div>
 
         <!-- Calculator 2 -->
         <div class="calculator-results" id="panel-calc2" style="display:none">
@@ -653,6 +689,23 @@
 
       return { S1, S2, S3, S4, S5, totalCompliance, totalOutpost, net };
     }
+    
+    function setATVDisabled(disabled){
+      const atv = document.getElementById('in_atv');
+      const atvVal = document.getElementById('in_atv_val');
+      const label = document.getElementById('label_atv');
+      if (!atv) return;
+      atv.disabled = disabled;
+      atv.style.opacity = disabled ? 0.4 : 1;
+      if (atvVal) atvVal.style.opacity = disabled ? 0.6 : 1;
+      if (label) label.style.opacity = disabled ? 0.6 : 1;
+    }
+    
+    function updateCTA(){
+      const el = document.getElementById('calc-cta-text');
+      if (!el) return;
+      el.textContent = `Make ${utils.formatShortCurrency(Live.netImpact)} more in Brazil with Outpost — Book a demo`;
+    }
 
     // --- helpers for the three Solution boxes ---
     function getLessVsAltPercent() {
@@ -756,22 +809,25 @@
 
       Live.netImpact = Live.activeCalc === 'calc1' ? r1.net : r2.net;
       updateBindingsAcrossPage();
+      updateCTA();
       updateSolutionBoxesUI();
     }
 
     // ===== Toggle & inputs =====
-    function toggleCalc(which) {
-      Live.activeCalc = which;
-
-      document.getElementById('btn-calc1').classList.toggle('active', which === 'calc1');
-      document.getElementById('btn-calc2').classList.toggle('active', which === 'calc2');
-
-      document.getElementById('panel-calc1').style.display = which === 'calc1' ? 'block' : 'none';
-      document.getElementById('panel-calc2').style.display = which === 'calc2' ? 'block' : 'none';
-
-      labelInputs();     // refresh E slider for this calc
-      computeAndPaint(); // repaint everything
-    }
+    function toggleCalc(which){
+        Live.activeCalc = which;
+      
+        document.getElementById('btn-calc1').classList.toggle('active', which === 'calc1');
+        document.getElementById('btn-calc2').classList.toggle('active', which === 'calc2');
+      
+        document.getElementById('panel-calc1').style.display = which === 'calc1' ? 'block' : 'none';
+        document.getElementById('panel-calc2').style.display = which === 'calc2' ? 'block' : 'none';
+      
+        // ⬅️ disable B for Calculator 1
+        setATVDisabled(which === 'calc1');
+      
+        computeAndPaint();
+      }
 
     function updateInputs() {
       Live.gmv_usd = parseFloat(document.getElementById('in_gmv').value) || 0;
@@ -793,11 +849,18 @@
 
     // ===== Init =====
     document.addEventListener('DOMContentLoaded', () => {
-      // Navbar scroll effect
-      window.addEventListener('scroll', () => {
-        const navbar = document.getElementById('navbar');
-        if (window.scrollY > 50) navbar.classList.add('scrolled'); else navbar.classList.remove('scrolled');
-      });
+        // Navbar scroll effect
+        // Smooth scrolling
+        // …
+      
+        // Initialize
+        labelInputs();
+        computeAndPaint();
+      
+        // >>> add these lines <<<
+        setATVDisabled(Live.activeCalc === 'calc1'); // disable B on load if Calc 1 is active
+        updateCTA();                                  // sync the CTA text
+        });
 
       // Smooth scrolling
       document.querySelectorAll('a[href^="#"]').forEach(anchor => {
