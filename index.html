@@ -273,7 +273,7 @@
     </div>
   </section>
 
-  <!-- Solution (trimmed to item you kept) -->
+  <!-- Solution (kept concise) -->
   <section class="section bg-primary" id="solution">
     <div class="container">
       <div class="section-header">
@@ -556,7 +556,7 @@
       L_revBooked: 0.07, M_taxMarket: 0.34, N_taxHome: 0.21
     };
 
-    // ===== Live state (shared A/B; E per calc so defaults match screenshots) =====
+    // ===== Live state =====
     const Live = {
       activeCalc: 'calc1',
       gmv_usd: 5_000_000,    // A
@@ -612,26 +612,30 @@
       document.getElementById('in_payfx_val').textContent = (e * 100).toFixed(1) + '%';
     }
 
+    // 🔁 Everything across the page updates from here
     function updateBindingsAcrossPage() {
-      const short = utils.formatShortCurrency(Live.netImpact).substring(1); // remove $ for inline copy
+      const shortNoDollar = utils.formatShortCurrency(Live.netImpact).substring(1);
       const percent = Live.gmv_usd > 0 ? Math.round((Live.netImpact / Live.gmv_usd) * 100) : 0;
 
-      // Page-wide "amount saved"
-      document.querySelectorAll('.dynamic-value').forEach(el => el.textContent = short);
+      // Site-wide “amount saved” + hero total value banner
+      document.querySelectorAll('.dynamic-value').forEach(el => el.textContent = shortNoDollar);
       document.querySelectorAll('.dynamic-total-value').forEach(el => el.textContent = '+' + utils.formatCurrency(Live.netImpact) + ' annual value');
 
-      // Keep hero Brazil headline as provided
-      document.querySelectorAll('.dynamic-value-brazil').forEach(el => el.textContent = '1.1M');
-      document.querySelectorAll('.dynamic-percentage-brazil').forEach(el => el.textContent = '22%');
+      // HERO (now dynamic too)
+      document.querySelectorAll('.dynamic-value-brazil').forEach(el => el.textContent = shortNoDollar);
+      document.querySelectorAll('.dynamic-percentage-brazil').forEach(el => el.textContent = percent + '%');
 
-      // Problem cards: tie to current inputs
+      // Problem cards: tie to current inputs/calcs
       const r1 = runCalc1(Live.gmv_usd, Live.e_pct.calc1);
       const r2 = runCalc2(Live.gmv_usd, Live.avg_txn_usd, Live.e_pct.calc2);
-      document.querySelectorAll('.dynamic-fx').forEach(el => el.textContent = utils.formatShortCurrency((Live.activeCalc === 'calc1' ? Live.e_pct.calc1 : Live.e_pct.calc2) * Live.gmv_usd));
+
+      // Payment/FX card uses the active calc's E for transparency
+      const activeE = Live.e_pct[Live.activeCalc];
+      document.querySelectorAll('.dynamic-fx').forEach(el => el.textContent = utils.formatShortCurrency(activeE * Live.gmv_usd));
       document.querySelectorAll('.dynamic-revenue').forEach(el => el.textContent = utils.formatShortCurrency(r2.S4));
       document.querySelectorAll('.dynamic-revenue-short').forEach(el => el.textContent = utils.formatShortCurrency(r2.S4));
       document.querySelectorAll('.dynamic-compliance').forEach(el => el.textContent = utils.formatShortCurrency(Math.abs(r2.totalCompliance) - Math.abs(r2.totalOutpost)));
-      document.querySelectorAll('.dynamic-fines').forEach(el => el.textContent = utils.formatShortCurrency(Live.gmv_usd * 0.16));
+      document.querySelectorAll('.dynamic-fines').forEach(el => el.textContent = utils.formatShortCurrency(Live.gmv_usd * 0.16)); // VAT exposure proxy
       document.querySelectorAll('.dynamic-longtail').forEach(el => el.textContent = utils.formatShortCurrency(r2.S5));
     }
 
@@ -687,7 +691,7 @@
       document.getElementById('panel-calc2').style.display = which === 'calc2' ? 'block' : 'none';
 
       labelInputs();     // refresh E slider for this calc
-      computeAndPaint(); // repaint
+      computeAndPaint(); // repaint everything
     }
 
     function updateInputs() {
@@ -697,7 +701,7 @@
       const eVal = (parseFloat(document.getElementById('in_payfx').value) || 0) / 100;
       Live.e_pct[Live.activeCalc] = eVal;
 
-      // reflect label
+      // reflect labels quickly
       document.getElementById('in_gmv_val').textContent = utils.formatCurrency(Live.gmv_usd);
       document.getElementById('in_atv_val').textContent = utils.formatCurrency(Live.avg_txn_usd);
       document.getElementById('in_payfx_val').textContent = (eVal * 100).toFixed(1) + '%';
