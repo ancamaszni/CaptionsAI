@@ -1,162 +1,497 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Outpost x Captions AI: Unlock upside in Brazil</title>
+  <title>Outpost x Praktika: Unlock upside in Mexico</title>
+
   <style>
+    /* ================================
+       Variables (Praktika scheme)
+    ================================= */
     :root{
-      --bg-primary:#0c0a10;--bg-secondary:#121018;--bg-tertiary:#1a1820;--border-color:#2b2b2b;
-      --text-primary:#ffffff;--text-secondary:#a8a8a8;--text-tertiary:#6b6b6b;
-      --accent:#6b57ff;--accent-dim:rgba(107,87,255,.1);--accent-hover:#8979ff;
-      --success:#6b57ff;--danger:#f31199;--warning:#ffc107;--link-color:#6b57ff;
-      --jb-purple:#6b57ff;--jb-purple-hover:#8979ff;--jb-purple-dim:rgba(107,87,255,.8);
-      --jb-purple-fog:rgba(107,87,255,.2);--jb-pink:#f31199;--jb-card-bg:#151320;--jb-card-hover:#1a1825
+      /* Backgrounds */
+      --bg-primary:   #ffffff;
+      --bg-secondary: #f8f9ff;
+      --bg-tertiary:  #f0f2ff;
+
+      /* Borders */
+      --border-color: #e5e7f5;
+
+      /* Text */
+      --text-primary:   #1a1a2e;
+      --text-secondary: #4a5568;
+      --text-tertiary:  #718096;
+
+      /* Accent */
+      --accent:       #6366ff;
+      --accent-hover: #5558ff;
+      --accent-dim:   rgba(99,102,255,0.08);
+
+      /* Status */
+      --success: #10b981;
+      --danger:  #ef4444;
+      --warning: #f59e0b;
+      --link-color: #6366ff;
+
+      /* Legacy tokens mapped to light theme */
+      --jb-purple:       #6366ff;
+      --jb-purple-hover: #5558ff;
+      --jb-purple-dim:   rgba(99,102,255,0.8);
+      --jb-purple-fog:   rgba(99,102,255,0.2);
+      --jb-pink:         #ef4444;       /* use danger red */
+      --jb-card-bg:      #ffffff;
+      --jb-card-hover:   #f8f9ff;
+
+      --summary-h: 88px;
+      --cta-reserve: 140px; /* space to keep above the CTA */
     }
-    *{margin:0;padding:0;box-sizing:border-box;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
-    body{font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;background:var(--bg-primary);color:var(--text-primary);font-size:16px;line-height:1.6;overflow-x:hidden;text-rendering:optimizeLegibility;min-width:320px}
 
-    .container{max-width:1200px;margin:0 auto;padding:0 40px}
-    .section{padding:100px 0}
-    .section-header{text-align:center;margin-bottom:40px}
-    .section-title{font-size:clamp(32px,4vw,48px);font-weight:700;margin-bottom:16px;letter-spacing:-.02em;color:var(--text-primary)}
-    .section-subtitle{font-size:20px;color:var(--text-secondary);max-width:800px;margin:0 auto;line-height:1.6;font-weight:400}
+    /* ================================
+       Base
+    ================================= */
+    *{
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
 
-    nav{position:fixed;top:0;width:100%;background:rgba(12,10,16,.97);backdrop-filter:blur(20px);z-index:1000;padding:20px 0;transition:all .3s ease;border-bottom:1px solid var(--border-color)}
-    nav.scrolled{padding:15px 0;box-shadow:0 1px 3px rgba(0,0,0,.5)}
-    .nav-container{display:flex;justify-content:space-between;align-items:center}
-    .logo{font-size:20px;font-weight:700;color:var(--text-primary);text-decoration:none;letter-spacing:-.01em;transition:opacity .2s ease}
-    .logo:hover{opacity:.8}
-    .nav-links{display:flex;align-items:center;gap:40px}
-    .nav-links a:not(.btn){color:var(--text-secondary);text-decoration:none;font-size:14px;font-weight:500;transition:color .3s ease;position:relative}
-    .nav-links a:not(.btn)::after{content:'';position:absolute;bottom:-4px;left:0;right:0;height:2px;background:var(--accent);transform:scaleX(0);transition:transform .3s ease}
-    .nav-links a:not(.btn):hover{color:var(--text-primary)}
-    .nav-links a:not(.btn):hover::after{transform:scaleX(1)}
+    body{
+      font-family: "Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+      text-rendering: optimizeLegibility;
+      min-width: 320px;
+    }
 
-    .btn{padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:500;transition:all .3s ease;cursor:pointer;border:none;font-size:14px;display:inline-block}
-    .btn-primary{background:var(--accent);color:#fff}
-    .btn-primary:hover{background:var(--accent-hover);transform:translateY(-1px);box-shadow:0 4px 20px rgba(107,87,255,.3)}
-    .btn-secondary{background:transparent;color:var(--text-primary);border:1px solid var(--border-color)}
-    .btn-secondary:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-dim)}
+    .container{ max-width: 1200px; margin: 0 auto; padding: 0 40px; }
+    .section{ padding: 100px 0; }
+    .section-header{ text-align: center; margin-bottom: 40px; }
+    .section-title{
+      font-size: clamp(32px,4vw,48px);
+      font-weight: 700;
+      margin-bottom: 16px;
+      letter-spacing: -.02em;
+      color: var(--text-primary);
+    }
+    .section-subtitle{
+      font-size: 20px;
+      color: var(--text-secondary);
+      max-width: 800px;
+      margin: 0 auto;
+      line-height: 1.6;
+      font-weight: 400;
+    }
 
-    .hero{padding:180px 0;text-align:center;position:relative;background:var(--bg-primary)}
-    .hero-badge{display:inline-flex;align-items:center;gap:8px;background:var(--accent-dim);color:var(--accent);padding:8px 20px;border-radius:24px;font-size:14px;margin-bottom:24px;border:1px solid var(--jb-purple-fog);animation:fadeInDown .6s ease;font-weight:500}
-    .badge-dot{width:8px;height:8px;background:var(--accent);border-radius:50%;animation:pulse 2s ease-in-out infinite}
-    h1{font-size:clamp(48px,8vw,72px);font-weight:700;line-height:1.1;letter-spacing:-.02em;margin-bottom:30px;animation:fadeInUp .8s ease;color:var(--text-primary)}
-    .gradient-text{color:var(--accent)}
-    .hero-subtitle{font-size:clamp(20px,3vw,24px);color:var(--text-secondary);max-width:700px;margin:0 auto 40px;line-height:1.6;animation:fadeInUp .8s ease .2s both;font-weight:400}
-    .hero-buttons{display:flex;margin-bottom:60px;gap:16px;justify-content:center;flex-wrap:wrap;animation:fadeInUp .8s ease .4s both}
-    .hero-callout{margin-top:80px;padding:24px 32px;background:linear-gradient(135deg,var(--jb-card-bg) 0%,rgba(21,19,32,.8) 100%);border:1px solid var(--border-color);border-radius:16px;max-width:800px;margin-left:auto;margin-right:auto;animation:fadeInUp .8s ease .6s both;position:relative;overflow:hidden}
-    .hero-callout::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent 0%,var(--accent) 20%,var(--accent) 80%,transparent 100%);opacity:.8}
-    .hero-callout-text{font-size:18px;line-height:1.6;color:var(--text-secondary);font-weight:400;text-align:center;margin:0}
-    .hero-callout-text strong{color:var(--text-primary);font-weight:600}
+    /* ================================
+       Nav (light)
+    ================================= */
+    nav{
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: rgba(255,255,255,0.97);
+      backdrop-filter: blur(20px);
+      z-index: 1000;
+      padding: 20px 0;
+      transition: all .3s ease;
+      border-bottom: 1px solid var(--border-color);
+    }
+    nav.scrolled{ padding: 15px 0; box-shadow: 0 1px 3px rgba(0,0,0,.05); }
 
-    .card{background:var(--jb-card-bg);border-radius:16px;padding:32px;transition:all .3s ease;border:1px solid var(--border-color);box-shadow:0 1px 3px rgba(0,0,0,.3)}
-    .card:hover{transform:translateY(-4px);background:var(--jb-card-hover);box-shadow:0 8px 24px rgba(0,0,0,.4);border-color:var(--accent)}
-    .card-icon{width:60px;height:60px;background:var(--accent-dim);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:28px;margin-bottom:20px;color:var(--accent);transition:all .3s ease}
-    .card.orange .card-icon,.card.yellow .card-icon{background:var(--accent-dim);color:var(--accent)}
-    .card:hover .card-icon{transform:scale(1.1)}
-    .card-value{font-size:36px;font-weight:700;margin-bottom:12px;color:var(--accent)}
-    .card-label{font-size:20px;font-weight:600;margin-bottom:8px;color:var(--text-primary)}
-    .card-description{color:var(--text-secondary);line-height:1.6;font-weight:400}
+    .nav-container{ display: flex; justify-content: space-between; align-items: center; }
+    .logo{
+      font-size: 20px; font-weight: 700; color: var(--text-primary);
+      text-decoration: none; letter-spacing: -.01em; transition: opacity .2s ease;
+    }
+    .logo:hover{ opacity: .8; }
 
-    .grid-3{display:grid;grid-template-columns:repeat(auto-fit,minmax(350px,1fr));gap:32px}
-    .grid-2{display:grid;grid-template-columns:repeat(auto-fit,minmax(450px,1fr));gap:48px}
+    .nav-links{ display: flex; align-items: center; gap: 40px; }
+    .nav-links a:not(.btn){
+      color: var(--text-secondary); text-decoration: none; font-size: 14px; font-weight: 500;
+      transition: color .3s ease; position: relative;
+    }
+    .nav-links a:not(.btn)::after{
+      content: ''; position: absolute; bottom: -4px; left: 0; right: 0; height: 2px;
+      background: var(--accent); transform: scaleX(0); transition: transform .3s ease;
+    }
+    .nav-links a:not(.btn):hover{ color: var(--text-primary); }
+    .nav-links a:not(.btn):hover::after{ transform: scaleX(1); }
 
-    .table-container{background:var(--jb-card-bg);border-radius:16px;padding:0;border:1px solid var(--border-color);overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.3)}
-    table{width:100%;border-collapse:collapse;font-size:16px}
-    thead{background:var(--bg-secondary);border-bottom:1px solid var(--border-color)}
-    th{padding:28px 32px;text-align:left;font-weight:600;color:var(--text-primary);font-size:16px}
-    tbody tr{border-bottom:1px solid var(--border-color);transition:all .2s ease}
-    tbody tr:hover{background:rgba(107,87,255,.05)}
-    tbody tr:last-child{border-bottom:none}
-    td{padding:24px 32px;vertical-align:top;line-height:1.6;color:var(--text-primary)}
+    /* ================================
+       Buttons
+    ================================= */
+    .btn{
+      padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 500;
+      transition: all .3s ease; cursor: pointer; border: none; font-size: 14px; display: inline-block;
+    }
+    .btn-primary{ background: var(--accent); color: #fff; }
+    .btn-primary:hover{ background: var(--accent-hover); transform: translateY(-1px); box-shadow: 0 4px 20px rgba(99,102,255,.25); }
+    .btn-secondary{ background: transparent; color: var(--text-primary); border: 1px solid var(--border-color); }
+    .btn-secondary:hover{ border-color: var(--accent); color: var(--accent); background: var(--accent-dim); }
 
-    .calculator-toggle{display:flex;justify-content:center;margin-bottom:40px;gap:0;background:var(--bg-primary);padding:4px;border-radius:12px;border:1px solid var(--border-color);width:fit-content;margin-left:auto;margin-right:auto}
-    .calc-toggle-option{padding:12px 24px;border-radius:8px;cursor:pointer;transition:all .3s ease;font-weight:500;color:var(--text-secondary);background:transparent;border:none;font-size:16px}
-    .calc-toggle-option.active{background:var(--accent);color:#fff}
-    .calc-toggle-option:hover:not(.active){color:var(--text-primary)}
+    /* ================================
+       Hero (light gradient)
+    ================================= */
+    .hero{
+      padding: 180px 0; text-align: center; position: relative;
+      background: linear-gradient(180deg, rgba(99,102,255,0.03) 0%, rgba(255,255,255,0) 100%);
+    }
+    .hero-badge{
+      display: inline-flex; align-items: center; gap: 8px; background: var(--accent-dim);
+      color: var(--accent); padding: 8px 20px; border-radius: 24px; font-size: 14px; margin-bottom: 24px;
+      border: 1px solid var(--jb-purple-fog); animation: fadeInDown .6s ease; font-weight: 500;
+    }
+    .badge-dot{ width: 8px; height: 8px; background: var(--accent); border-radius: 50%; animation: pulse 2s ease-in-out infinite; }
+    h1{
+      font-size: clamp(48px,8vw,72px); font-weight: 700; line-height: 1.1; letter-spacing: -.02em; margin-bottom: 30px;
+      animation: fadeInUp .8s ease; color: var(--text-primary);
+    }
+    .gradient-text{
+      background: linear-gradient(135deg, #7c3aed 0%, #6366ff 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .hero-subtitle{
+      font-size: clamp(20px,3vw,24px); color: var(--text-secondary); max-width: 700px; margin: 0 auto 40px; line-height: 1.6;
+      animation: fadeInUp .8s ease .2s both; font-weight: 400;
+    }
+    .hero-buttons{ display: flex; margin-bottom: 60px; gap: 16px; justify-content: center; flex-wrap: wrap; animation: fadeInUp .8s ease .4s both; }
+    .hero-callout{
+      margin-top: 80px; padding: 24px 32px;
+      background: linear-gradient(135deg, rgba(99,102,255,0.05) 0%, rgba(99,102,255,0.02) 100%);
+      border: 1px solid var(--border-color); border-radius: 16px; max-width: 800px; margin-left: auto; margin-right: auto;
+      animation: fadeInUp .8s ease .6s both; position: relative; overflow: hidden;
+    }
+    .hero-callout::before{
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg,transparent 0%,var(--accent) 20%,var(--accent) 80%,transparent 100%);
+      opacity: .5;
+    }
+    .hero-callout-text{ font-size: 18px; line-height: 1.6; color: var(--text-secondary); font-weight: 400; text-align: center; margin: 0; }
+    .hero-callout-text strong{ color: var(--text-primary); font-weight: 600; }
 
-    .calculator-container{display:grid;grid-template-columns:1fr 1fr;gap:60px;background:var(--jb-card-bg);border-radius:16px;padding:60px;border:1px solid var(--border-color);box-shadow:0 1px 3px rgba(0,0,0,.3)}
-    .input-group{margin-bottom:28px}
-    .input-label{display:block;font-weight:500;margin-bottom:12px;color:var(--text-primary);font-size:16px}
-    .input-wrapper{position:relative;display:flex;align-items:center;gap:16px}
-    .range-input{flex:1;-webkit-appearance:none;appearance:none;height:6px;background:var(--border-color);border-radius:3px;outline:none}
-    .range-input::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:20px;height:20px;background:var(--accent);border-radius:50%;cursor:pointer;transition:all .2s ease}
-    .range-input::-webkit-slider-thumb:hover{transform:scale(1.2);box-shadow:0 0 10px var(--accent)}
-    .range-value{min-width:110px;text-align:right;font-size:20px;font-weight:600;color:var(--accent)}
-    .calc-cta{margin-top:28px}
+    /* ================================
+       Cards & Grid
+    ================================= */
+    .card{
+      background: var(--jb-card-bg); border-radius: 16px; padding: 32px; transition: all .3s ease;
+      border: 1px solid var(--border-color); box-shadow: 0 2px 8px rgba(0,0,0,.04);
+    }
+    .card:hover{
+      transform: translateY(-4px); background: var(--jb-card-hover);
+      box-shadow: 0 12px 24px rgba(99,102,255,0.15); border-color: rgba(99,102,255,0.3);
+    }
+    .card-icon{
+      width: 60px; height: 60px; background: var(--accent-dim); border-radius: 12px; display: flex; align-items: center; justify-content: center;
+      font-size: 28px; margin-bottom: 20px; color: var(--accent); transition: all .3s ease;
+    }
+    .card.orange .card-icon{ background: rgba(245,158,11,0.1); color: var(--warning); }
+    .card.yellow .card-icon{ background: rgba(251,191,36,0.1); color: #fbbf24; }
+    .card:hover .card-icon{ transform: scale(1.1); }
+    .card-value{ font-size: 36px; font-weight: 700; margin-bottom: 12px; color: var(--accent); }
+    .card-label{ font-size: 20px; font-weight: 600; margin-bottom: 8px; color: var(--text-primary); }
+    .card-description{ color: var(--text-secondary); line-height: 1.6; font-weight: 400; }
 
-    .calculator-results{background:rgba(107,87,255,.05);border-radius:12px;padding:40px;border:1px solid var(--jb-purple-fog)}
-    .result-item{display:flex;justify-content:space-between;align-items:center;padding:20px 0;border-bottom:1px solid var(--border-color)}
-    .result-item:last-of-type{border-bottom:none}
-    .result-item.highlight{background:var(--accent-dim);margin:0 -20px;padding:20px;border-radius:8px;border:1px solid var(--jb-purple-fog)}
-    .result-label{font-size:16px;font-weight:500;color:var(--text-primary)}
-    .result-value{font-size:20px;font-weight:600;white-space:nowrap}
-    .result-value.positive{color:var(--success)}
-    .result-value.negative{color:var(--danger)}
+    .grid-3{ display: grid; grid-template-columns: repeat(auto-fit,minmax(350px,1fr)); gap: 32px; }
+    .grid-2{ display: grid; grid-template-columns: repeat(auto-fit,minmax(450px,1fr)); gap: 48px; }
 
-    .highlight-pink{background:rgba(243,17,153,.12);border:1px solid rgba(243,17,153,.3);border-radius:8px;padding:20px;margin:12px -20px}
-    .highlight-pink .result-value{color:var(--jb-pink)}
-    .vs-divider{text-align:center;margin:16px 0 12px;font-weight:700;color:var(--text-secondary);letter-spacing:.08em}
+    /* ================================
+       Table
+    ================================= */
+    .table-container{
+      background: var(--jb-card-bg); border-radius: 16px; padding: 0; border: 1px solid var(--border-color);
+      overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,.04);
+    }
+    table{ width: 100%; border-collapse: collapse; font-size: 16px; }
+    thead{ background: var(--bg-secondary); border-bottom: 1px solid var(--border-color); }
+    th{ padding: 28px 32px; text-align: left; font-weight: 600; color: var(--text-primary); font-size: 16px; }
+    tbody tr{ border-bottom: 1px solid var(--border-color); transition: all .2s ease; }
+    tbody tr:hover{ background: var(--bg-secondary); }
+    tbody tr:last-child{ border-bottom: none; }
+    td{ padding: 24px 32px; vertical-align: top; line-height: 1.6; color: var(--text-primary); }
 
-    @keyframes fadeInDown{from{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:translateY(0)}}
-    @keyframes fadeInUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
-    @keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.5);opacity:.5}}
+    /* ================================
+       Calculator – toggle
+    ================================= */
+    .calculator-toggle{
+      display: flex; justify-content: center; position: relative; z-index: 5; margin-bottom: 40px; gap: 0;
+      background: var(--bg-primary); padding: 4px; border-radius: 12px; border: 1px solid var(--border-color); width: fit-content; margin-left: auto; margin-right: auto;
+    }
+    .calc-toggle-option{
+      padding: 12px 24px; border-radius: 8px; cursor: pointer; transition: all .3s ease; font-weight: 500; color: var(--text-secondary);
+      background: transparent; border: none; font-size: 16px;
+    }
+    .calc-toggle-option.active{ background: var(--accent); color: #fff; }
+    .calc-toggle-option:hover:not(.active){ color: var(--text-primary); }
 
-    .bg-secondary{background:var(--bg-secondary)}
-    .bg-primary{background:var(--bg-primary)}
-    .impact-item{display:grid;grid-template-columns:280px 1fr;gap:60px;align-items:center;padding:48px;background:var(--jb-card-bg);border-radius:16px;border:1px solid var(--border-color);transition:all .3s ease;margin-bottom:48px;box-shadow:0 1px 3px rgba(0,0,0,.3)}
-    .impact-item:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.4);border-color:var(--accent);background:var(--jb-card-hover)}
-    .metric-icon{width:72px;height:72px;background:var(--accent-dim);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:36px;color:var(--accent)}
-    .metric-value{display:flex;flex-direction:column;gap:8px;text-align:center}
-    .metric-number{font-size:48px;font-weight:700;color:var(--accent);line-height:1;letter-spacing:-.02em}
-    .metric-label{font-size:18px;color:var(--text-secondary);font-weight:400}
-    .value-hero{margin:80px auto;max-width:1100px;padding:60px 40px;background:linear-gradient(135deg,var(--jb-card-bg) 0%,rgba(21,19,32,.8) 100%);border-radius:16px;text-align:center;border:2px solid var(--accent);position:relative;overflow:hidden}
-    .value-hero::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(107,87,255,.1) 0%,transparent 50%);pointer-events:none}
-    .value-hero-content{position:relative;z-index:1;font-size:24px;font-weight:500;color:var(--text-primary)}
-    .value-highlight{color:var(--accent);font-weight:700;font-size:32px;display:block;margin-top:10px}
+    /* ================================
+       Calculator – layout
+    ================================= */
+    .calculator-container{
+      display: grid;
+      grid-template-columns: minmax(420px, 0.45fr) minmax(420px, 0.55fr);
+      gap: 60px;
+      background: var(--jb-card-bg);
+      border-radius: 16px;
+      padding: 60px;
+      border: 1px solid var(--border-color);
+      box-shadow: 0 1px 3px rgba(0,0,0,.06);
+      position: relative;
+    }
+    .calculator-container > *{ min-width: 0; }
 
-    .disclaimer-footer{background:var(--bg-tertiary);border-top:1px solid var(--border-color);padding:40px 0;margin-top:0}
-    .disclaimer-content{text-align:center;max-width:800px;margin:0 auto}
-    .disclaimer-text{color:var(--text-secondary);font-size:14px;line-height:1.6;font-weight:400}
-    .disclaimer-icon{display:inline-block;width:20px;height:20px;margin-right:8px;vertical-align:middle;opacity:.6}
+    /* Left column (sticky) */
+    .left-panel{
+      position: sticky;
+      top: 100px;
+      align-self: start;
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+      max-height: calc(100vh - 100px);
+      z-index: 1;
+    }
+    .calculator-inputs{
+      flex: 1 1 auto;
+      overflow: auto;
+      padding-right: 0;
+      padding-bottom: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      scrollbar-width: none; -ms-overflow-style: none;
+    }
+    .calculator-inputs::-webkit-scrollbar{ width: 0; height: 0; }
 
+    .calc-cta-bottom{
+      margin-top: 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* Make calc pinned CTA match other big CTAs */
+    .calc-cta-bottom .btn {
+      padding: 16px 32px;
+      font-size: 18px;
+      font-weight: 600;
+      line-height: 1.2;
+      min-height: 52px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    @media (max-width: 768px){
+      .calc-cta-bottom .btn {
+        font-size: 16px;
+        padding: 14px 24px;
+        min-height: 48px;
+      }
+    }
+
+    .calc-note{
+      font-size: 12px;
+      color: var(--text-tertiary);
+      font-style: italic;
+      text-align: center;
+    }
+
+    /* Inputs */
+    .input-group{ margin-bottom: 0; transition: all .3s ease; }
+    .input-group.hidden{ display: none; }
+    .input-label{ display: block; font-weight: 500; margin-bottom: 12px; color: var(--text-primary); font-size: 16px; }
+    .input-wrapper{ position: relative; display: flex; align-items: center; gap: 16px; }
+    .range-input{
+      flex: 1; -webkit-appearance: none; appearance: none; height: 6px;
+      background: var(--border-color); border-radius: 3px; outline: none;
+    }
+    .range-input::-webkit-slider-thumb{
+      -webkit-appearance: none; appearance: none; width: 20px; height: 20px; background: var(--accent);
+      border-radius: 50%; cursor: pointer; transition: all .2s ease; box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .range-input::-webkit-slider-thumb:hover{ transform: scale(1.2); box-shadow: 0 0 10px var(--accent); }
+    .range-value{ min-width: 110px; text-align: right; font-size: 20px; font-weight: 600; color: var(--accent); }
+
+    /* Stack slider + value on small widths */
+    .input-wrapper.wide{ display: flex !important; flex-direction: column; align-items: stretch; gap: 8px; }
+    .input-wrapper.wide .range-input{ display: block; width: 100%; min-width: 0; }
+    .input-wrapper.wide .range-value{ text-align: right; font-size: 18px; }
+
+    /* Results card */
+    .calculator-results{
+      background: var(--bg-secondary);
+      border-radius: 12px;
+      padding: 40px;
+      border: 1px solid var(--jb-purple-fog);
+    }
+    .result-item{
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 20px 0; border-bottom: 1px solid var(--border-color);
+    }
+    .result-item:last-of-type{ border-bottom: none; }
+    .result-item.highlight{
+      background: var(--accent-dim); margin: 0 -20px; padding: 20px; border-radius: 8px; border: 1px solid var(--jb-purple-fog);
+    }
+    .result-label{ font-size: 16px; font-weight: 500; color: var(--text-primary); }
+    .result-value{ font-size: 20px; font-weight: 600; white-space: nowrap; }
+    .result-value.positive{ color: var(--success); }
+    .result-value.negative{ color: var(--danger); }
+
+    .highlight-pink{
+      background: var(--accent-dim);
+      border: 1px solid rgba(99,102,255,0.2);
+      border-radius: 8px;
+      padding: 20px;
+      margin: 12px -20px;
+    }
+    .highlight-pink .result-value{ color: var(--accent); }
+    .vs-divider{ text-align: center; margin: 16px 0 12px; font-weight: 700; color: var(--text-secondary); letter-spacing: .08em; }
+
+    /* Misc sections */
+    .bg-secondary{ background: var(--bg-secondary); }
+    .bg-primary{ background: var(--bg-primary); }
+
+    .impact-item{
+      display: grid; grid-template-columns: 280px 1fr; gap: 60px; align-items: center; padding: 48px;
+      background: var(--jb-card-bg); border-radius: 16px; border: 1px solid var(--border-color); transition: all .3s ease;
+      margin-bottom: 48px; box-shadow: 0 2px 8px rgba(0,0,0,.04);
+    }
+    .impact-item:hover{
+      transform: translateY(-2px); box-shadow: 0 12px 24px rgba(99,102,255,0.15);
+      border-color: rgba(99,102,255,0.3); background: var(--jb-card-hover);
+    }
+    .metric-icon{
+      width: 72px; height: 72px; background: var(--accent-dim); border-radius: 12px; display: flex; align-items: center; justify-content: center;
+      font-size: 36px; color: var(--accent);
+    }
+    .metric-value{ display: flex; flex-direction: column; gap: 8px; text-align: center; }
+    .metric-number{ font-size: 48px; font-weight: 700; color: var(--accent); line-height: 1; letter-spacing: -.02em; }
+    .metric-label{ font-size: 18px; color: var(--text-secondary); font-weight: 400; }
+
+    .value-hero{
+      margin: 80px auto; max-width: 1100px; padding: 60px 40px;
+      background: linear-gradient(135deg,#7c3aed 0%,#6366ff 100%);
+      border-radius: 16px; text-align: center; border: 2px solid var(--accent); position: relative; overflow: hidden;
+      box-shadow: 0 20px 40px rgba(99,102,255,0.2);
+    }
+    .value-hero::before{
+      content: ''; position: absolute; inset: 0; background: linear-gradient(135deg,rgba(99,102,255,.1) 0%,transparent 50%);
+      pointer-events: none;
+    }
+    .value-hero-content{ position: relative; z-index: 1; font-size: 24px; font-weight: 500; color: #ffffff; }
+    .value-highlight{ color: #ffffff; font-weight: 700; font-size: 32px; display: block; margin-top: 10px; }
+
+    .disclaimer-footer{ background: var(--bg-tertiary); border-top: 1px solid var(--border-color); padding: 40px 0; margin-top: 0; }
+    .disclaimer-content{ text-align: center; max-width: 800px; margin: 0 auto; }
+    .disclaimer-text{ color: var(--text-secondary); font-size: 14px; line-height: 1.6; font-weight: 400; }
+    .disclaimer-icon{ display: inline-block; width: 20px; height: 20px; margin-right: 8px; vertical-align: middle; opacity: .6; }
+
+    /* ================================
+       Animations
+    ================================= */
+    @keyframes fadeInDown{ from{ opacity:0; transform: translateY(-20px); } to{ opacity:1; transform: translateY(0); } }
+    @keyframes fadeInUp{   from{ opacity:0; transform: translateY(30px);  } to{ opacity:1; transform: translateY(0); } }
+    @keyframes pulse{ 0%,100%{ transform: scale(1); opacity:1; } 50%{ transform: scale(1.5); opacity:.5; } }
+
+    /* ================================
+       Responsive
+    ================================= */
     @media (max-width:1024px){
-      .calculator-container{grid-template-columns:1fr;gap:40px;padding:40px}
-      .grid-2{grid-template-columns:1fr}
-      .impact-item{grid-template-columns:1fr;gap:32px}
+      .calculator-container{ grid-template-columns: 1fr; gap: 40px; padding: 40px; }
+      .grid-2{ grid-template-columns: 1fr; }
+      .impact-item{ grid-template-columns: 1fr; gap: 32px; }
+      :root{ --cta-reserve: 120px; }
     }
+
     @media (max-width:768px){
-      .container{padding:0 20px}
-      .nav-links a:not(.btn){display:none}
-      h1{font-size:48px}
-      .hero-subtitle{font-size:18px}
-      .section-header{margin-bottom:32px}
-      .calculator-toggle{margin-bottom:32px}
-      .section-title{font-size:32px}
-      .grid-3{grid-template-columns:1fr}
-      .table-container{overflow-x:auto}
-      table{min-width:700px}
-      .value-hero{margin:60px auto;padding:40px 20px}
-      .value-hero-content{font-size:20px}
-      .value-highlight{font-size:24px}
-      .disclaimer-footer{padding:30px 0}
-      .disclaimer-text{font-size:13px;padding:0 20px}
+      .container{ padding: 0 20px; }
+      .nav-links a:not(.btn){ display: none; }
+      h1{ font-size: 48px; }
+      .hero-subtitle{ font-size: 18px; }
+      .section-header{ margin-bottom: 32px; }
+      .calculator-toggle{ margin-bottom: 32px; }
+      .section-title{ font-size: 32px; }
+      .grid-3{ grid-template-columns: 1fr; }
+      .table-container{ overflow-x: auto; }
+      table{ min-width: 700px; }
+      .value-hero{ margin: 60px auto; padding: 40px 20px; }
+      .value-hero-content{ font-size: 20px; }
+      .value-highlight{ font-size: 24px; }
+      .disclaimer-footer{ padding: 30px 0; }
+      .disclaimer-text{ font-size: 13px; padding: 0 20px; }
+      :root{ --cta-reserve: 160px; }
     }
+
+    /* ================================
+   Mobile calculator overlap fix
+    ================================ */
+    @media (max-width:1024px){
+      .left-panel{
+        position: static;     /* disable sticky in single-column layout */
+        top: auto;
+        max-height: none;
+        z-index: auto;
+      }
+      .calculator-container{ overflow: visible; }
+    }
+    
+    .calculator-results{
+      position: relative;
+      z-index: 0;
+    }
+    
+    @media (max-width:480px){
+      .range-value{
+        min-width: 84px;
+        font-size: 16px;
+      }
+    }
+
+    /* ================================
+     Mobile nav text fix
+    ================================ */
+    @media (max-width:768px){
+      .nav-container{
+        flex-wrap: nowrap;         /* keep logo + button on one line */
+        overflow: hidden;          /* avoid ugly wrapping */
+      }
+      .logo,
+      .nav-links a.btn{
+        white-space: nowrap;       /* don't break text */
+      }
+      .logo{
+        font-size: 16px;            /* slightly smaller so it fits */
+      }
+      .nav-links a.btn{
+        font-size: 12px;            /* smaller CTA text */
+        padding: 8px 12px;          /* tighter button padding */
+      }
+    }
+
+
   </style>
 </head>
+
 <body>
   <!-- Navigation -->
   <nav id="navbar">
     <div class="container">
       <div class="nav-container">
-        <a href="/" class="logo">Outpost x Captions AI</a>
+        <a href="/" class="logo">Outpost x Praktika</a>
         <div class="nav-links">
           <a href="#problem">Problem</a>
           <a href="#solution">Solution</a>
           <a href="#calculator">Calculator</a>
-          <a href="#" class="btn btn-primary" onclick="openModal()">Unlock $<span class="dynamic-value">1.1M</span> with Outpost</a>
+          <a href="#" class="btn btn-primary" onclick="openModal()">
+            Unlock $<span class="dynamic-value">1.1M</span> with Outpost
+          </a>
         </div>
       </div>
     </div>
@@ -165,14 +500,31 @@
   <!-- Hero -->
   <section class="hero">
     <div class="container">
-      <div class="hero-badge"><div class="badge-dot"></div><span>Unlock revenue in Brazil</span></div>
-      <h1>Get <span class="gradient-text dynamic-percentage-brazil">22%</span> more out<br/>of Brazil with Outpost</h1>
-      <p class="hero-subtitle">Captions AI is leaving $<span class="dynamic-value-brazil">1.1M</span> on the table every year in Brazil.<br/><br/><strong>Unlock it with Outpost.</strong></p>
+      <div class="hero-badge">
+        <div class="badge-dot"></div><span>Unlock revenue in Mexico</span>
+      </div>
+
+      <h1>
+        Get <span class="gradient-text dynamic-percentage-Mexico">22%</span> more out<br/>
+        of Mexico with Outpost
+      </h1>
+
+      <p class="hero-subtitle">
+        Praktika is leaving $<span class="dynamic-value-Mexico">1.1M</span> on the table every year in Mexico.
+        <br/><br/><strong>Unlock it with Outpost.</strong>
+      </p>
+
       <div class="hero-buttons">
         <a href="#calculator" class="btn btn-primary">Calculate impact →</a>
         <button class="btn btn-secondary" onclick="openModal()">Book demo</button>
       </div>
-      <div class="hero-callout"><p class="hero-callout-text"><strong>Outpost</strong> partners with enterprises like <strong>Captions AI</strong> so they can sell in Brazil like a local. Offload your tax, compliance, payments, legal and operational burdens to Outpost.</p></div>
+
+      <div class="hero-callout">
+        <p class="hero-callout-text">
+          <strong>Outpost</strong> partners with enterprises like <strong>Praktika</strong> so they can sell in Mexico like a local.
+          Offload your tax, compliance, payments, legal and operational burdens to Outpost.
+        </p>
+      </div>
     </div>
   </section>
 
@@ -181,52 +533,55 @@
     <div class="container">
       <div class="section-header">
         <h2 class="section-title">The hidden cost of global expansion</h2>
-        <p class="section-subtitle">Software companies expanding to Brazil are leaving substantial value on the table every year due to inefficient payments and tax infrastructure. We estimate it is costing Captions AI $<span class="dynamic-value">1.1M</span> per annum in churned revenue, lower margins and long tail risk management.</p>
+        <p class="section-subtitle">
+          Global B2C software companies in to Mexico are leaving substantial value on the table every year from inefficient payments and tax infrastructure.
+          We estimate it's costing Praktika $<span class="dynamic-value">1.1M</span> per annum in app store fees and additional payments and FX costs; and moving off the app store does not lower this.
+        </p>
       </div>
 
       <div class="grid-3">
         <div class="card">
           <div class="card-icon">
             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <line x1="12" y1="1" x2="12" y2="23"></line>
-              <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+              <line x1="12" y1="1" x2="12" y2="23" />
+              <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
             </svg>
           </div>
-          <div class="card-value">-<span class="dynamic-fx">$200K</span></div>
-          <div class="card-label">Payment provider and FX costs</div>
-          <p class="card-description">High costs of international acquiring, limited access to local APMs, rigid checkout flow and chargeback limitations.</p>
+          <div class="card-value">30% of GMV</div>
+          <div class="card-label">Commission for App/Play Store</div>
+          <p class="card-description">App / Play Store commissions erode margins locally and imposes many restrictions.</p>
         </div>
 
         <div class="card orange">
           <div class="card-icon">
             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M3 3v18h18"></path>
-              <path d="M18.5 3.5L7 15l4 4L22 7.5"></path>
-              <circle cx="7" cy="15" r="1"></circle>
-              <circle cx="11" cy="19" r="1"></circle>
+              <path d="M3 3v18h18" />
+              <path d="M18.5 3.5L7 15l4 4L22 7.5" />
+              <circle cx="7" cy="15" r="1" />
+              <circle cx="11" cy="19" r="1" />
             </svg>
           </div>
-          <div class="card-value">-<span class="dynamic-revenue">$300K</span></div>
-          <div class="card-label">Failed transactions</div>
-          <p class="card-description">Lower approval rates mean transactions get declined and customers abandon the journey at checkout.</p>
+          <div class="card-value">-<span class="dynamic-fx">$200K</span></div>
+          <div class="card-label">Extra payments & FX costs</div>
+          <p class="card-description">Expensive charges for refunds and chargebacks with App / Play Store and high FX fees on payouts.</p>
         </div>
 
         <div class="card yellow">
           <div class="card-icon">
             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M9 3v18M15 3v18M21 12L3 12"></path>
-              <path d="M6 6l-3 6 3 6M18 6l3 6-3 6"></path>
+              <path d="M9 3v18M15 3v18M21 12L3 12" />
+              <path d="M6 6l-3 6 3 6M18 6l3 6-3 6" />
             </svg>
           </div>
-          <div class="card-value">-<span class="dynamic-compliance">$2.6M</span></div>
-          <div class="card-label">Tax compliance costs</div>
-          <p class="card-description">Local compliance is costly and time consuming, and non compliance is fined at up to 70% of VAT owed per year.</p>
+          <div class="card-value"><span id="cost-move-off" class="dynamic-compliance">$2.6M</span></div>
+          <div class="card-label">Cost to move off the app store</div>
+          <p class="card-description">Moving off the app store is even more expensive because of PSP and FX costs, higher effective tax rate and lower approval rates leading to churn.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Solution (3 boxes kept) -->
+  <!-- Solution -->
   <section class="section bg-primary" id="solution">
     <div class="container">
       <div class="section-header">
@@ -238,17 +593,18 @@
         <div style="display:flex;align-items:center;gap:24px;justify-content:center;">
           <div class="metric-icon">
             <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="M9 12l2 2 4-4"></path>
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+              <path d="M9 12l2 2 4-4" />
             </svg>
           </div>
           <div class="metric-value">
-            <span class="metric-number"><span class="dynamic-outpost-fee-pct">7.5%</span></span>
-            <span class="metric-label">all-in fee</span>
+            <span class="metric-number"><span class="dynamic-outpost-fee-pct">8.5%</span></span>
+            <span class="metric-label">All in one fee</span>
           </div>
         </div>
         <div>
           <h3 style="font-size:20px;font-weight:600;margin-bottom:8px;"><span class="dynamic-outpost-fee-pct">7.5%</span> fee only</h3>
-          <p style="color:var(--text-secondary);">Outpost One comes with an all-in-one fee that covers payments and indirect tax compliance obligations — we simply require a minimum volume through our platform in Year 1.</p>
+          <p style="color:var(--text-secondary);">Outpost One comes with an all-in-one fee covers payments and indirect tax compliance obligations - we simply require a minimum volume through out platform in Year 1.</p>
         </div>
       </div>
 
@@ -256,18 +612,19 @@
         <div style="display:flex;align-items:center;gap:24px;justify-content:center;">
           <div class="metric-icon">
             <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="M9 12l2 2 4-4"></path>
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+              <path d="M9 12l2 2 4-4" />
             </svg>
           </div>
           <div class="metric-value">
             <span class="metric-number">MoR</span>
-            <span class="metric-label">all strings attached</span>
+            <span class="metric-label">End-to-end coverage</span>
           </div>
         </div>
         <div>
-          <h3 style="font-size:20px;font-weight:600;margin-bottom:8px;">All strings attached</h3>
-          <p style="color:var(--text-secondary);margin-bottom:24px;">As your MoR, Outpost becomes the legal re-seller of your software in Brazil and handles the full tax compliance — through an optimised structure we design for you.</p>
-          <p style="color:var(--text-secondary);">We also handle and optimise payments end-to-end — so you benefit from higher approval rates and local APM access, as well as optimised FX on payouts.</p>
+          <h3 style="font-size:20px;font-weight:600;margin-bottom:8px;">End-to-end coverage</h3>
+          <p style="color:var(--text-secondary);margin-bottom:24px;">As your MoR, Outpost becomes the legal re-seller of your software in Mexico and handle the full tax compliance - through an optimised structure we design for you.</p>
+          <p style="color:var(--text-secondary);">We also handle and optimise payments end to end - so you benefit from the same approval rates and APM access, as well as optimised FX on payouts.</p>
         </div>
       </div>
 
@@ -275,7 +632,7 @@
         <div style="display:flex;align-items:center;gap:24px;justify-content:center;">
           <div class="metric-icon">
             <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M5 12h14M12 5l7 7-7 7"></path>
+              <path d="M5 12h14M12 5l7 7-7 7" />
             </svg>
           </div>
           <div class="metric-value">
@@ -285,7 +642,7 @@
         </div>
         <div>
           <h3 style="font-size:20px;font-weight:600;margin-bottom:8px;"><span class="dynamic-less-vs-alt">36%</span> less vs. alternatives</h3>
-          <p style="color:var(--text-secondary);">Not only do we deliver a better outcome through an optimised tax structure and by taking over in-market legal & tax liability — we also optimise your transfer pricing through an efficient structure and an Outpost entity set up just for you.</p>
+          <p style="color:var(--text-secondary);">Outpost yields a superior outcome from every angle - we optimise your tax structure, cover your legal and tax liability in market, and optimise payments. We deliver all this through an Outpost entity set up just for you.</p>
         </div>
       </div>
 
@@ -302,7 +659,10 @@
   <section class="section bg-secondary" id="calculator">
     <div class="container">
       <div class="section-header">
-        <h2 class="section-title">The impact Outpost can have<br/>for Captions AI<span id="region-text"> in Brazil</span></h2>
+        <h2 class="section-title">
+          The impact Outpost can have<br/>for Praktika
+          <span id="region-text"> in Mexico</span>
+        </h2>
       </div>
 
       <div class="calculator-toggle">
@@ -311,43 +671,58 @@
       </div>
 
       <div class="calculator-container">
-        <!-- LEFT: Inputs -->
-        <div>
-          <h3 style="font-size:24px;font-weight:600;margin-bottom:24px;">Inputs</h3>
-
-          <div class="input-group">
-            <label class="input-label">GMV in Brazil ($)</label>
-            <div class="input-wrapper">
-              <input type="range" id="in_gmv" class="range-input" min="1000000" max="20000000" step="100000" value="5000000" oninput="updateInputs()">
-              <span class="range-value" id="in_gmv_val">$5,000,000</span>
+        <!-- LEFT PANEL -->
+        <div class="left-panel">
+          <div class="calculator-inputs">
+            <h3 style="font-size:24px;font-weight:600;margin-bottom:24px;">Inputs</h3>
+        
+            <!-- GMV slider -->
+            <div class="input-group">
+              <label class="input-label">GMV in Mexico ($)</label>
+              <div class="input-wrapper wide">
+                <input
+                  type="range" id="in_gmv_num" class="range-input"
+                  min="500000" max="10000000" step="50000" value="2000000"
+                  oninput="handleGMVSlider(this)"
+                />
+                <span class="range-value" id="in_gmv_val">$2,000,000</span>
+              </div>
             </div>
-          </div>
-
-          <!-- B kept as hidden constant for Calc 2 (50) -->
-          <input type="hidden" id="in_atv" value="50">
-
-          <div class="input-group">
-            <label class="input-label">Additional payments fees and FX (%)</label>
-            <div class="input-wrapper">
-              <input type="range" id="in_payfx" class="range-input" min="1.5" max="10" step="0.5" value="4" oninput="updateInputs()">
-              <span class="range-value" id="in_payfx_val">4.0%</span>
+        
+            <!-- Average Transaction Value (only for calc2) -->
+            <div class="input-group hidden" id="atv-group">
+              <label class="input-label">Average Transaction Value ($)</label>
+              <div class="input-wrapper wide">
+                <input
+                  type="range" id="in_atv_num" class="range-input"
+                  min="1" max="300" step="1" value="15"
+                  oninput="handleATVSlider(this)"
+                />
+                <span class="range-value" id="in_atv_val">$15</span>
+              </div>
             </div>
-          </div>
-
-          <div class="calc-cta">
-            <button class="btn btn-primary" onclick="openModal()">
-              <span id="calc-cta-text">Make $1.1M more in Brazil with Outpost — Book a demo</span>
-            </button>
+        
+            <!-- FX slider -->
+            <div class="input-group">
+              <label class="input-label">Additional payments fees and FX (%)</label>
+              <div class="input-wrapper wide">
+                <input
+                  type="range" id="in_payfx" class="range-input"
+                  min="1.5" max="10" step="0.5" value="4"
+                  oninput="handlePayFxInput(this)"
+                />
+                <span class="range-value" id="in_payfx_val">4.0%</span>
+              </div>
+            </div>
           </div>
         </div>
-
-        <!-- RIGHT: Results (two panels, toggle visibility) -->
+        
+        <!-- RIGHT COLUMN: results + CTA -->
         <div>
           <!-- Calc 1 -->
           <div class="calculator-results" id="panel-calc1">
             <h3 style="font-size:24px;font-weight:600;margin-bottom:8px;">App / Play store vs. Outpost</h3>
-
-            <!-- App / Play store -->
+        
             <div class="result-item">
               <span class="result-label">App store / play store fee</span>
               <span class="result-value negative" id="c1_app_fee">-$1,500,000</span>
@@ -356,103 +731,64 @@
               <span class="result-label">Additional payments cost and FX</span>
               <span class="result-value negative" id="c1_addl_payments">-$200,000</span>
             </div>
-            <div class="result-item">
-              <span class="result-label">Sales tax</span>
-              <span class="result-value negative" id="c1_indirect_tax">-$1,250,000</span>
-            </div>
+        
             <div class="highlight-pink">
               <div class="result-item" style="border-bottom:none;padding:0;">
                 <span class="result-label"><strong>Total with App / Play store</strong></span>
-                <span class="result-value" id="c1_total_app">-$2,950,000</span>
+                <span class="result-value" id="c1_total_app">-$1,700,000</span>
               </div>
             </div>
-
-            <div class="vs-divider">vs.</div>
-
-            <!-- Outpost -->
-            <div class="result-item">
-              <span class="result-label">Outpost fee</span>
-              <span class="result-value negative" id="c1_outpost_fee">-$375,000</span>
-            </div>
-            <div class="result-item">
-              <span class="result-label">Sales tax</span>
-              <span class="result-value negative" id="c1_outpost_tax">-$1,487,500</span>
-            </div>
-            <div class="highlight-pink">
-              <div class="result-item" style="border-bottom:none;padding:0;">
-                <span class="result-label"><strong>Total with Outpost</strong></span>
-                <span class="result-value" id="c1_total_outpost">-$1,862,500</span>
-              </div>
-            </div>
-
-            <div class="result-item highlight" style="margin-top:16px;">
+        
+            <!-- Net impact (calc 1) -->
+            <div class="result-item highlight" id="c1_net_row" style="margin:12px -20px 0;">
               <span class="result-label"><strong>Net impact with Outpost</strong></span>
-              <span class="result-value positive" id="c1_net">+$1,087,500</span>
+              <span class="result-value positive" id="c1_net">+$1,325,000</span>
             </div>
           </div>
-
+        
           <!-- Calc 2 -->
           <div class="calculator-results" id="panel-calc2" style="display:none">
             <h3 style="font-size:24px;font-weight:600;margin-bottom:8px;">Compliance Platform vs. Outpost</h3>
-
-            <!-- Only the five yellow-box items -->
+        
             <div class="result-item">
-              <span class="result-label">Ongoing compliance cost</span>
-              <span class="result-value negative" id="c2_ongoing">-$72,000</span>
+              <span class="result-label">Ongoing compliance (avg partner + PE/TP delta)</span>
+              <span class="result-value negative" id="c2_tp_ongoing">-$117,500</span>
             </div>
             <div class="result-item">
               <span class="result-label">Payments commissions and FX costs</span>
               <span class="result-value negative" id="c2_payfx">-$350,000</span>
             </div>
             <div class="result-item">
-              <span class="result-label">Transfer pricing and other compliance</span>
-              <span class="result-value negative" id="c2_tp_other">-$45,500</span>
-            </div>
-            <div class="result-item">
-              <span class="result-label">Effective tax</span>
-              <span class="result-value negative" id="c2_tax_comp">-$2,600,000</span>
-            </div>
-            <div class="result-item">
               <span class="result-label">Lower approval rates</span>
               <span class="result-value negative" id="c2_lower_approvals">-$300,000</span>
             </div>
-
+        
             <div class="highlight-pink">
               <div class="result-item" style="border-bottom:none;padding:0;">
                 <span class="result-label"><strong>Total with compliance platform</strong></span>
                 <span class="result-value" id="c2_total_comp">-$3,367,500</span>
               </div>
             </div>
-
-            <div class="vs-divider">vs.</div>
-
-            <div class="result-item">
-              <span class="result-label">Outpost fee</span>
-              <span class="result-value negative" id="c2_outpost_fee">-$375,000</span>
-            </div>
-            <div class="result-item">
-              <span class="result-label">Effective tax</span>
-              <span class="result-value negative" id="c2_tax_outpost">-$1,487,500</span>
-            </div>
-
-            <div class="highlight-pink">
-              <div class="result-item" style="border-bottom:none;padding:0;">
-                <span class="result-label"><strong>Total with Outpost</strong></span>
-                <span class="result-value" id="c2_total_outpost">-$1,862,500</span>
-              </div>
-            </div>
-
-            <div class="result-item highlight" style="margin-top:16px;">
+        
+            <!-- Net impact (calc 2) -->
+            <div class="result-item highlight" id="c2_net_row" style="margin:12px -20px 0;">
               <span class="result-label"><strong>Net impact with Outpost</strong></span>
-              <span class="result-value positive" id="c2_net">+$1,505,000</span>
+              <span class="result-value positive" id="c2_net">+$2,992,500</span>
             </div>
+          </div>
+        
+          <!-- CTA after both panels -->
+          <div class="calc-cta calc-cta-bottom">
+            <button class="btn btn-primary" onclick="openModal()">
+              <span id="calc-cta-text">
+                Unlock $1.1M with Outpost — Book a demo
+              </span>
+            </button>
+            <p class="calc-note">*Net value is inclusive of Outpost's flat fee</p>
           </div>
         </div>
       </div>
 
-      <p style="font-size:12px;color:var(--text-tertiary);margin-top:16px;text-align:center;font-style:italic;">
-        *Net value is inclusive of Outpost's flat fee
-      </p>
     </div>
   </section>
 
@@ -460,7 +796,10 @@
   <section class="section bg-primary">
     <div class="container">
       <div class="section-header">
-        <h2 class="section-title">We are the only enterprise-grade MoR, delivering all of the above with your <span class="gradient-text">dedicated Outpost entity</span></h2>
+        <h2 class="section-title">
+          We are the only enterprise-grade MoR, delivering all of the above with your
+          <span class="gradient-text">dedicated Outpost entity</span>
+        </h2>
       </div>
 
       <div class="table-container">
@@ -495,7 +834,7 @@
             </tr>
             <tr>
               <td><strong>MCC Configuration</strong></td>
-              <td style="background:rgba(16,163,127,.03);"><span style="color:var(--accent);font-weight:700;">✓</span> Optimized for each merchant’s business</td>
+              <td style="background:rgba(16,163,127,.03);"><span style="color:var(--accent);font-weight:700;">✓</span> Optimised for each merchant's business</td>
               <td style="background:rgba(239,68,70,.03);"><span style="color:var(--danger);">❌</span> Often fixed or limited</td>
             </tr>
             <tr>
@@ -517,7 +856,9 @@
   <!-- CTA -->
   <section class="section bg-secondary" style="text-align:center;border-top:1px solid var(--border-color);">
     <div class="container">
-      <h2 class="section-title">Your AI can generate captions,<br>but it can't caption a $<span class="dynamic-value">1.1M</span> cash leak</h2>
+      <h2 class="section-title">
+        Unlocking $<span class="dynamic-value">1.1M</span>?<br/>Sounds good in any language.
+      </h2>
       <button class="btn btn-primary" style="margin-top:40px;font-size:18px;padding:16px 32px;" onclick="openModal()">Book demo →</button>
     </div>
   </section>
@@ -528,7 +869,9 @@
       <div class="disclaimer-content">
         <p class="disclaimer-text">
           <svg class="disclaimer-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line>
+            <circle cx="12" cy="12" r="10" />
+            <line x1="12" y1="16" x2="12" y2="12" />
+            <line x1="12" y1="8" x2="12.01" y2="8" />
           </svg>
           The cost savings estimates on this website are for informational purposes only and based on general assumptions and publicly available data. Actual results may vary significantly based on your specific business circumstances, transaction volumes, and market conditions. These estimates do not constitute guarantees, formal quotes, or professional advice. You should consult qualified advisors before making business decisions. Outpost disclaims all liability for any loss arising from reliance on these projections. Viewing this website does not create any client relationship. Governed by English law. 2025
         </p>
@@ -538,164 +881,276 @@
 
   <!-- Scripts -->
   <script>
-    // ===== Utilities =====
+    // ================= Utilities =================
     const utils = {
-      formatCurrency(a){return new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',minimumFractionDigits:0,maximumFractionDigits:0}).format(a||0)},
-      formatShortCurrency(a){const s=(a||0)<0?'-':'';const v=Math.abs(a||0);if(v>=1_000_000)return s+'$'+(v/1_000_000).toFixed(1)+'M';if(v>=1_000)return s+'$'+Math.round(v/1_000)+'K';return s+'$'+Math.round(v)}
+      formatCurrency(a){
+        return new Intl.NumberFormat('en-US', {
+          style:'currency', currency:'USD', minimumFractionDigits:0, maximumFractionDigits:0
+        }).format(a || 0);
+      },
+      formatShortCurrency(a){
+        const s = (a||0) < 0 ? '-' : '';
+        const v = Math.abs(a||0);
+        if (v >= 1_000_000) return s+'$'+(v/1_000_000).toFixed(1)+'M';
+        if (v >= 1_000)     return s+'$'+Math.round(v/1_000)+'K';
+        return s+'$'+Math.round(v);
+      }
+    };
+    utils.formatNumber = n => (Math.max(0, Math.round(n||0))).toLocaleString('en-US');
+    utils.parseNumber  = s => parseFloat(String(s||'').replace(/[^0-9.]/g,'')) || 0;
+
+    // ================= Constants (Excel parity) =================
+    const C1 = {
+      D: 0.085,  // Outpost fee
+      F: 0.30    // App/Play store fee
     };
 
-    // ===== Constants from the spreadsheet =====
-    const C1 = { D:0.075, F:0.30, H1:0.2975, H2:0.25 };
     const C2 = {
-      D:0.075, H1:0.2975, H2:0.52,
-      F_invoicesPct:1.10, G_invCost:0.05,
-      K_upliftPerPoint:0.003, I_current:0.65, J_new:0.85,
-      L_revBooked:0.07, M_taxMarket:0.34, N_taxHome:0.21
+      // Outpost fee
+      D: 0.085,
+
+      // Payments/FX assumptions
+      APP_PAYFX_PCT: 0.04,     // Calc 1: 4% (App/Play)
+      PARTNER_PAYFX_PCT: 0.08, // Calc 2: 8% (compliance platform)
+
+      // Approval rate uplift (Excel -> ~6% GMV)
+      K_upliftPerPoint: 0.003,
+      I_current: 0.65,
+      J_new: 0.85,
+
+      // Transfer pricing delta (0.91% GMV)
+      L_revBooked: 0.07,
+      M_taxMarket: 0.34,
+      N_taxHome: 0.21,
+
+      // Invoicing
+      F_invoicesPct: 1.10,   // multiplier
+      G_invCost: 0.05,       // $0.05 per invoice
+
+      // Stripe Tax & Quaderno
+      STRIPE_TAX_RATE: 0.005,      // 0.5% of GMV
+      STRIPE_API_CALL_COST: 0.4,   // £0.40 per API call (treated as 0.40)
+      STRIPE_API_CALL_MULT: 1.5,   // ×1.5
+
+      QUADERNO_BASE_PER_2500: 100, // $100 per 2,500 tx / month
+      QUADERNO_TX_DENOM: 2500,
+      MONTHS: 12
     };
 
-    // ===== Live state =====
     const Live = {
       activeCalc:'calc1',
-      gmv_usd:5_000_000,   // A
-      avg_txn_usd:50,      // B (hidden constant for calc2)
-      e_pct:0.04,          // E (single slider drives both calcs)
-      netImpact:0
+      gmv_usd: utils.parseNumber(document.getElementById('in_gmv_num')?.value) || 2_000_000,
+      avg_txn_usd: utils.parseNumber(document.getElementById('in_atv_num')?.value) || 15,
+      e_pct: C2.APP_PAYFX_PCT,
+      e_pct_prev_app: C2.APP_PAYFX_PCT,
+      netImpact: 0
     };
 
-    // ===== Calculators =====
-    function runCalc1(A,E){
-      const appStoreFee = C1.F*A;
-      const additionalPayments = E*A;
-      const indirectTax = C1.H2*A;
-      const totalApp = appStoreFee + additionalPayments + indirectTax;
 
-      const outpostFee = C1.D*A;
-      const outpostTax = C1.H1*A;
-      const totalOutpost = outpostFee + outpostTax;
 
-      const net = totalApp - totalOutpost;
-      return {appStoreFee,additionalPayments,indirectTax,totalApp,outpostFee,outpostTax,totalOutpost,net};
+    // ================= Handlers =================
+    function handleGMVSlider(el){
+      const raw = parseInt(el.value, 10) || 0;
+      Live.gmv_usd = raw;
+      document.getElementById('in_gmv_val').textContent = utils.formatCurrency(Live.gmv_usd);
+      computeAndPaint();
     }
 
-    function runCalc2(A,B,E){
-      const C = B>0 ? A/B : 0;
+    function handleATVSlider(el){
+      const raw = parseInt(el.value, 10) || 0;
+      Live.avg_txn_usd = raw;
+      document.getElementById('in_atv_val').textContent = utils.formatCurrency(Live.avg_txn_usd);
+      computeAndPaint();
+    }
 
-      // S1/S2 used only to build average ongoing partner (=S3)
-      const stripeTaxCost = 0.005*A + 0.4*C*1.5;
-      const stripeInvoicing = C2.F_invoicesPct*C2.G_invCost*C;
-      const S1 = stripeTaxCost + stripeInvoicing;
+    function handlePayFxInput(el){
+      const eVal = (parseFloat(el.value) || 0) / 100;
+      Live.e_pct = eVal;
+      document.getElementById('in_payfx_val').textContent = (eVal * 100).toFixed(1) + '%';
+      computeAndPaint();
+    }
 
-      const quadTaxCost = 100*(C/2500)*12;
-      const quadInvoicing = C2.F_invoicesPct*C2.G_invCost*C;
-      const S2 = quadTaxCost + quadInvoicing;
+    // ================= Calculators (Excel parity) =================
+    function runCalc1(A, E){
+      // NO TAXES. App/Play = 30% + payments/FX (slider, default 4%); Outpost = 7.5% fee only
+      const appStoreFee        = C1.F * A;     // 30%
+      const additionalPayments = E * A;        // slider
+      const totalApp           = appStoreFee + additionalPayments;
 
-      const ongoingCompliance = (S1 + S2)/2;                 // S3
-      const lowerApprovalRates = A*(C2.J_new - C2.I_current)*100*C2.K_upliftPerPoint; // S4
-      const transferPricingOther = C2.L_revBooked*A*(C2.M_taxMarket - C2.N_taxHome); // S5
-      const paymentsFx = E*A;
-      const effectiveTaxCompliance = C2.H2*A;
+      const outpostFee   = C1.D * A;           // 7.5%
+      const totalOutpost = outpostFee;
 
-      const totalComplianceAbs = ongoingCompliance + paymentsFx + transferPricingOther + effectiveTaxCompliance + lowerApprovalRates;
-      const totalCompliance = -totalComplianceAbs;
+      const net = totalApp - totalOutpost;
+      return { appStoreFee, additionalPayments, totalApp, outpostFee, totalOutpost, net };
+    }
 
-      const outpostFeeAbs = C2.D*A;
-      const outpostTaxAbs = C2.H1*A;
-      const totalOutpostAbs = outpostFeeAbs + outpostTaxAbs;
-      const totalOutpost = -totalOutpostAbs;
+    function runCalc2(A, B){
+      // NO TAXES on either side.
+      // Transactions
+      const C = B > 0 ? A / B : 0;
+
+      // Stripe Tax + invoicing
+      const stripeTaxCost   = C2.STRIPE_TAX_RATE * A + C2.STRIPE_API_CALL_COST * C * C2.STRIPE_API_CALL_MULT;
+      const stripeInvoicing = C2.F_invoicesPct * C2.G_invCost * C;
+      const stripeTotal     = stripeTaxCost + stripeInvoicing;
+
+      // Quaderno + invoicing
+      const quadTaxCost     = C2.QUADERNO_BASE_PER_2500 * (C / C2.QUADERNO_TX_DENOM) * C2.MONTHS;
+      const quadInvoicing   = C2.F_invoicesPct * C2.G_invCost * C;
+      const quadTotal       = quadTaxCost + quadInvoicing;
+
+      // Average partner
+      const partnerAvg = (stripeTotal + quadTotal) / 2;
+
+      // PE/TP delta
+      const transferPricingOther = C2.L_revBooked * A * (C2.M_taxMarket - C2.N_taxHome); // 0.91% * GMV
+
+      // Ongoing compliance (avg partner + PE/TP)
+      const ongoingCompliance = partnerAvg + transferPricingOther;
+
+      // Payments & FX (fixed 8%)
+      const paymentsFx = C2.PARTNER_PAYFX_PCT * A;
+
+      // Lower approvals (~6% of GMV)
+      const lowerApprovalRates = A * (C2.J_new - C2.I_current) * 100 * C2.K_upliftPerPoint;
+
+      // Compliance total (no tax)
+      const totalComplianceAbs = ongoingCompliance + paymentsFx + lowerApprovalRates;
+
+      // Outpost fee only (no tax)
+      const outpostFeeAbs   = C2.D * A;
+      const totalOutpostAbs = outpostFeeAbs;
 
       const net = totalComplianceAbs - totalOutpostAbs;
 
       return {
-        ongoingCompliance, paymentsFx, transferPricingOther, effectiveTaxCompliance, lowerApprovalRates,
-        totalComplianceAbs, totalCompliance, outpostFeeAbs, outpostTaxAbs, totalOutpostAbs, totalOutpost, net
+        partnerAvg, transferPricingOther, ongoingCompliance,
+        paymentsFx, lowerApprovalRates, totalComplianceAbs,
+        outpostFeeAbs, totalOutpostAbs, net
       };
     }
 
-    // ===== UI painters =====
+    // ================= Painters =================
     function paintCalc1(r){
-      document.getElementById('c1_app_fee').textContent       = '-'+utils.formatCurrency(r.appStoreFee);
-      document.getElementById('c1_addl_payments').textContent = '-'+utils.formatCurrency(r.additionalPayments);
-      document.getElementById('c1_indirect_tax').textContent  = '-'+utils.formatCurrency(r.indirectTax);
-      document.getElementById('c1_total_app').textContent     = '-'+utils.formatCurrency(r.totalApp);
-      document.getElementById('c1_outpost_fee').textContent   = '-'+utils.formatCurrency(r.outpostFee);
-      document.getElementById('c1_outpost_tax').textContent   = '-'+utils.formatCurrency(r.outpostTax);
-      document.getElementById('c1_total_outpost').textContent = '-'+utils.formatCurrency(r.totalOutpost);
-
-      const netEl = document.getElementById('c1_net');
-      netEl.textContent = (r.net>=0?'+':'') + utils.formatCurrency(r.net);
-      netEl.classList.toggle('positive', r.net>=0);
-      netEl.classList.toggle('negative', r.net<0);
+    document.getElementById('c1_app_fee').textContent       = '-' + utils.formatCurrency(r.appStoreFee);
+    document.getElementById('c1_addl_payments').textContent = '-' + utils.formatCurrency(r.additionalPayments);
+    document.getElementById('c1_total_app').textContent     = '-' + utils.formatCurrency(r.totalApp);
+  
+    const outFee1 = document.getElementById('c1_outpost_fee');
+    if (outFee1) outFee1.textContent = '-' + utils.formatCurrency(r.outpostFee);
+    const totOut1 = document.getElementById('c1_total_outpost');
+    if (totOut1) totOut1.textContent = '-' + utils.formatCurrency(r.totalOutpost);
+  
+    const netVal = (r.net >= 0 ? '+' : '') + utils.formatCurrency(r.net);
+    const el = document.getElementById('c1_net');
+    if (el){
+      el.textContent = netVal;
+      el.classList.toggle('positive', r.net >= 0);
+      el.classList.toggle('negative', r.net < 0);
     }
-
-    function paintCalc2(r){
-      document.getElementById('c2_ongoing').textContent        = '-'+utils.formatCurrency(r.ongoingCompliance);
-      document.getElementById('c2_payfx').textContent          = '-'+utils.formatCurrency(r.paymentsFx);
-      document.getElementById('c2_tp_other').textContent       = '-'+utils.formatCurrency(r.transferPricingOther);
-      document.getElementById('c2_tax_comp').textContent       = '-'+utils.formatCurrency(r.effectiveTaxCompliance);
-      document.getElementById('c2_lower_approvals').textContent= '-'+utils.formatCurrency(r.lowerApprovalRates);
-
-      document.getElementById('c2_total_comp').textContent     = '-'+utils.formatCurrency(r.totalComplianceAbs);
-      document.getElementById('c2_outpost_fee').textContent    = '-'+utils.formatCurrency(r.outpostFeeAbs);
-      document.getElementById('c2_tax_outpost').textContent    = '-'+utils.formatCurrency(r.outpostTaxAbs);
-      document.getElementById('c2_total_outpost').textContent  = '-'+utils.formatCurrency(r.totalOutpostAbs);
-
-      const netEl = document.getElementById('c2_net');
-      netEl.textContent = (r.net>=0?'+':'') + utils.formatCurrency(r.net);
-      netEl.classList.toggle('positive', r.net>=0);
-      netEl.classList.toggle('negative', r.net<0);
+  }
+  
+  function paintCalc2(r){
+    const combinedCompliance = r.ongoingCompliance;
+    document.getElementById('c2_tp_ongoing').textContent      = '-' + utils.formatCurrency(combinedCompliance);
+    document.getElementById('c2_payfx').textContent           = '-' + utils.formatCurrency(r.paymentsFx);
+    document.getElementById('c2_lower_approvals').textContent = '-' + utils.formatCurrency(r.lowerApprovalRates);
+  
+    document.getElementById('c2_total_comp').textContent = '-' + utils.formatCurrency(r.totalComplianceAbs);
+  
+    const outFee2 = document.getElementById('c2_outpost_fee');
+    if (outFee2) outFee2.textContent = '-' + utils.formatCurrency(r.outpostFeeAbs);
+    const totOut2 = document.getElementById('c2_total_outpost');
+    if (totOut2) totOut2.textContent = '-' + utils.formatCurrency(r.totalOutpostAbs);
+  
+    const netVal = (r.net >= 0 ? '+' : '') + utils.formatCurrency(r.net);
+    const el = document.getElementById('c2_net');
+    if (el){
+      el.textContent = netVal;
+      el.classList.toggle('positive', r.net >= 0);
+      el.classList.toggle('negative', r.net < 0);
     }
+  }
 
-    // ===== Bindings across the page =====
+
+    // ================= Orchestration =================
     function getLessVsAltPercent(){
       const r1 = runCalc1(Live.gmv_usd, Live.e_pct);
-      const r2 = runCalc2(Live.gmv_usd, Live.avg_txn_usd, Live.e_pct);
-
-      if(Live.activeCalc==='calc1'){
-        const alt=r1.totalApp, out=r1.totalOutpost;
-        return alt>0?Math.round(((alt-out)/alt)*100):0;
-      }else{
-        const alt=r2.totalComplianceAbs, out=r2.totalOutpostAbs;
-        return alt>0?Math.round(((alt-out)/alt)*100):0;
+      const r2 = runCalc2(Live.gmv_usd, Live.avg_txn_usd);
+      if (Live.calc2 === 'calc1'){
+        const alt = r1.totalApp, out = r1.totalOutpost;
+        return alt > 0 ? Math.round(((alt - out) / alt) * 100) : 0;
+      } else {
+        const alt = r2.totalComplianceAbs, out = r2.totalOutpostAbs;
+        return alt > 0 ? Math.round(((alt - out) / alt) * 100) : 0;
       }
     }
 
     function updateSolutionBoxesUI(){
-      const fee=(C1.D*100).toFixed(1)+'%';
-      document.querySelectorAll('.dynamic-outpost-fee-pct').forEach(el=>el.textContent=fee);
-      const pct=getLessVsAltPercent()+'%';
-      document.querySelectorAll('.dynamic-less-vs-alt').forEach(el=>el.textContent=pct);
+      const fee = (C1.D * 100).toFixed(1) + '%';
+      document.querySelectorAll('.dynamic-outpost-fee-pct').forEach(el => el.textContent = fee);
+      const pct = getLessVsAltPercent() + '%';
+      document.querySelectorAll('.dynamic-less-vs-alt').forEach(el => el.textContent = pct);
     }
 
     function updateSiteDynamics(){
       const shortNo$ = utils.formatShortCurrency(Live.netImpact).substring(1);
-      const pct = Live.gmv_usd>0 ? Math.round((Live.netImpact/Live.gmv_usd)*100) : 0;
+      const pct = Live.gmv_usd > 0 ? Math.round((Live.netImpact / Live.gmv_usd) * 100) : 0;
 
-      document.querySelectorAll('.dynamic-value').forEach(el=>el.textContent=shortNo$);
-      document.querySelectorAll('.dynamic-total-value').forEach(el=>el.textContent='+'+utils.formatCurrency(Live.netImpact)+' annual value');
-      document.querySelectorAll('.dynamic-value-brazil').forEach(el=>el.textContent=shortNo$);
-      document.querySelectorAll('.dynamic-percentage-brazil').forEach(el=>el.textContent=pct+'%');
+      document.querySelectorAll('.dynamic-value').forEach(el => el.textContent = shortNo$);
+      document.querySelectorAll('.dynamic-total-value').forEach(el => el.textContent = '+' + utils.formatCurrency(Live.netImpact) + ' annual value');
 
-      // Problem cards
-      const r2 = runCalc2(Live.gmv_usd, Live.avg_txn_usd, Live.e_pct);
-      document.querySelectorAll('.dynamic-fx').forEach(el=>el.textContent=utils.formatShortCurrency(Live.e_pct*Live.gmv_usd));
-      document.querySelectorAll('.dynamic-revenue,.dynamic-revenue-short').forEach(el=>el.textContent=utils.formatShortCurrency(r2.lowerApprovalRates));
-      document.querySelectorAll('.dynamic-compliance').forEach(el=>el.textContent=utils.formatShortCurrency(r2.totalComplianceAbs - r2.totalOutpostAbs));
+      // Support both Brazil/Mexico classnames
+      document.querySelectorAll('.dynamic-value-brazil, .dynamic-value-Mexico')
+        .forEach(el => el.textContent = shortNo$);
+      document.querySelectorAll('.dynamic-percentage-brazil, .dynamic-percentage-Mexico')
+        .forEach(el => el.textContent = pct + '%');
+
+      const r1 = runCalc1(Live.gmv_usd, Live.e_pct);
+      const r2 = runCalc2(Live.gmv_usd, Live.avg_txn_usd);
+
+      // Display FX cost for Problem cards (uses current slider % for calc1)
+      document.querySelectorAll('.dynamic-fx')
+        .forEach(el => el.textContent = utils.formatShortCurrency(Live.e_pct * Live.gmv_usd));
+
+      // Revenue impact proxy: use lower approvals from calc2 for the metric spots
+      document.querySelectorAll('.dynamic-revenue,.dynamic-revenue-short')
+        .forEach(el => el.textContent = utils.formatShortCurrency(r2.lowerApprovalRates));
+
+      // Show the real cost difference (can be positive or negative)
+      const diffAppVsComp = r2.totalComplianceAbs - r1.totalApp;
+      const moveOffEl = document.getElementById('cost-move-off');
+      if (moveOffEl) {
+        moveOffEl.textContent = utils.formatShortCurrency(diffAppVsComp);
+        moveOffEl.classList.toggle('positive', diffAppVsComp < 0); // Cheaper off-store
+        moveOffEl.classList.toggle('negative', diffAppVsComp > 0); // More expensive off-store
+      }
+    }
+
+
+    function getRegionName(){
+      const t = document.getElementById('region-text')?.textContent || '';
+      const m = t.match(/in\s+(.+)/i);
+      return (m ? m[1] : 'Brazil').trim(); // default if missing
     }
 
     function updateCTA(){
-      const el=document.getElementById('calc-cta-text');
-      if(el) el.textContent = `Make ${utils.formatShortCurrency(Live.netImpact)} more in Brazil with Outpost — Book a demo`;
+      const el = document.getElementById('calc-cta-text');
+      if (el){
+        const region = getRegionName();
+        el.textContent = `Unlock ${utils.formatShortCurrency(Live.netImpact)} with Outpost — Book a demo`;
+      }
+      requestAnimationFrame(setCTAReserve);
     }
 
-    // ===== Orchestration =====
     function computeAndPaint(){
       const r1 = runCalc1(Live.gmv_usd, Live.e_pct);
-      const r2 = runCalc2(Live.gmv_usd, Live.avg_txn_usd, Live.e_pct);
+      const r2 = runCalc2(Live.gmv_usd, Live.avg_txn_usd);
 
       paintCalc1(r1);
       paintCalc2(r2);
 
-      Live.netImpact = Live.activeCalc==='calc1' ? r1.net : r2.net;
+      Live.netImpact = Live.activeCalc === 'calc1' ? r1.net : r2.net;
       updateSiteDynamics();
       updateSolutionBoxesUI();
       updateCTA();
@@ -703,47 +1158,75 @@
 
     function toggleCalc(which){
       Live.activeCalc = which;
-      document.getElementById('btn-calc1').classList.toggle('active', which==='calc1');
-      document.getElementById('btn-calc2').classList.toggle('active', which==='calc2');
-      document.getElementById('panel-calc1').style.display = which==='calc1' ? 'block' : 'none';
-      document.getElementById('panel-calc2').style.display = which==='calc2' ? 'block' : 'none';
+
+      document.getElementById('btn-calc1').classList.toggle('active', which === 'calc1');
+      document.getElementById('btn-calc2').classList.toggle('active', which === 'calc2');
+      document.getElementById('panel-calc1').style.display = which === 'calc1' ? 'block' : 'none';
+      document.getElementById('panel-calc2').style.display = which === 'calc2' ? 'block' : 'none';
+
+      document.getElementById('atv-group').classList.toggle('hidden', which !== 'calc2');
+
+      const slider = document.getElementById('in_payfx');
+      const valEl  = document.getElementById('in_payfx_val');
+      if (which === 'calc2'){
+        // Lock to 8% for Excel parity
+        Live.e_pct_prev_app = Live.e_pct;
+        Live.e_pct = C2.PARTNER_PAYFX_PCT;
+        slider.value = (Live.e_pct * 100).toFixed(1);
+        valEl.textContent = (Live.e_pct * 100).toFixed(1) + '%';
+        slider.setAttribute('disabled', 'disabled');
+      } else {
+        Live.e_pct = Live.e_pct_prev_app ?? C2.APP_PAYFX_PCT;
+        slider.value = (Live.e_pct * 100).toFixed(1);
+        valEl.textContent = (Live.e_pct * 100).toFixed(1) + '%';
+        slider.removeAttribute('disabled');
+      }
+
       computeAndPaint();
+      requestAnimationFrame(setCTAReserve);
     }
+    window.toggleCalc = toggleCalc;
 
-    function updateInputs(){
-      Live.gmv_usd = parseFloat(document.getElementById('in_gmv').value)||0;
-      const eVal = (parseFloat(document.getElementById('in_payfx').value)||0)/100;
-      Live.e_pct = eVal; // single slider now drives both calculators
-
-      // labels
-      document.getElementById('in_gmv_val').textContent = utils.formatCurrency(Live.gmv_usd);
-      document.getElementById('in_payfx_val').textContent = (eVal*100).toFixed(1)+'%';
-
-      computeAndPaint();
-    }
-
-    // ===== UI basics =====
+    // ================= UI basics =================
     function openModal(){ window.open('https://calendly.com/will-outpostnow/30min','_blank'); }
 
-    document.addEventListener('DOMContentLoaded',()=>{
-      window.addEventListener('scroll',()=>{
-        const n=document.getElementById('navbar');
-        if(window.scrollY>50) n.classList.add('scrolled'); else n.classList.remove('scrolled');
+    function setCTAReserve(){
+      const cta = document.querySelector('.calc-cta-bottom');
+      if (!cta) return;
+      const extra = 24;
+      document.documentElement.style.setProperty('--cta-reserve', `${cta.offsetHeight + extra}px`);
+    }
+
+    // ================= Lifecycle =================
+    window.addEventListener('load', () => {
+      setCTAReserve();
+      document.addEventListener('scroll', () => {
+        const n = document.getElementById('navbar');
+        if (window.scrollY > 50) n.classList.add('scrolled'); else n.classList.remove('scrolled');
       });
-      document.querySelectorAll('a[href^="#"]').forEach(a=>{
-        a.addEventListener('click',e=>{
+
+      document.querySelectorAll('a[href^="#"]').forEach(a => {
+        a.addEventListener('click', e => {
           e.preventDefault();
-          const t=document.querySelector(a.getAttribute('href'));
-          if(t){ window.scrollTo({top:t.offsetTop-80,behavior:'smooth'}); }
+          const t = document.querySelector(a.getAttribute('href'));
+          if (t) window.scrollTo({ top: t.offsetTop - 80, behavior: 'smooth' });
         });
       });
 
-      // initial labels
-      document.getElementById('in_gmv_val').textContent = utils.formatCurrency(Live.gmv_usd);
-      document.getElementById('in_payfx_val').textContent = (Live.e_pct*100).toFixed(1)+'%';
+      const gmvInput = document.getElementById('in_gmv_num');
+      if (gmvInput) gmvInput.value = String(Live.gmv_usd);
 
-      computeAndPaint(); // render everything
+      const atvInput = document.getElementById('in_atv_num');
+      if (atvInput) atvInput.value = String(Live.avg_txn_usd);
+      document.getElementById('in_atv_val').textContent = utils.formatCurrency(Live.avg_txn_usd);
+
+      document.getElementById('in_gmv_val').textContent   = utils.formatCurrency(Live.gmv_usd);
+      document.getElementById('in_payfx_val').textContent = (Live.e_pct * 100).toFixed(1) + '%';
+
+      computeAndPaint();
     });
+
+    window.addEventListener('resize', setCTAReserve);
   </script>
 </body>
 </html>
