@@ -603,7 +603,7 @@
           </div>
         </div>
         <div>
-          <h3 style="font-size:20px;font-weight:600;margin-bottom:8px;"><span class="dynamic-outpost-fee-pct">7.5%</span> fee only</h3>
+          <h3 style="font-size:20px;font-weight:600;margin-bottom:8px;"><span class="dynamic-outpost-fee-pct">8.5%</span> fee covers everything</h3>
           <p style="color:var(--text-secondary);">Outpost One comes with an all-in-one fee covers payments and indirect tax compliance obligations - we simply require a minimum volume through out platform in Year 1.</p>
         </div>
       </div>
@@ -751,11 +751,11 @@
             <h3 style="font-size:24px;font-weight:600;margin-bottom:8px;">Compliance Platform vs. Outpost</h3>
         
             <div class="result-item">
-              <span class="result-label">Ongoing compliance (avg partner + PE/TP delta)</span>
+              <span class="result-label">Ongoing compliance</span>
               <span class="result-value negative" id="c2_tp_ongoing">-$117,500</span>
             </div>
             <div class="result-item">
-              <span class="result-label">Payments commissions and FX costs</span>
+              <span class="result-label">Payments and FX costs</span>
               <span class="result-value negative" id="c2_payfx">-$350,000</span>
             </div>
             <div class="result-item">
@@ -972,7 +972,7 @@
 
     // ================= Calculators (Excel parity) =================
     function runCalc1(A, E){
-      // NO TAXES. App/Play = 30% + payments/FX (slider, default 4%); Outpost = 7.5% fee only
+      // NO TAXES. App/Play = 30% + payments/FX (slider, default 4%); Outpost = 8.5% fee only
       const appStoreFee        = C1.F * A;     // 30%
       const additionalPayments = E * A;        // slider
       const totalApp           = appStoreFee + additionalPayments;
